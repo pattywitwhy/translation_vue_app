@@ -24,7 +24,7 @@
 import axios from "axios";
 
 export default {
-  template: "#login-page",
+  // template: "#login-page",
   data: function() {
     return {
       email: "",
@@ -44,6 +44,7 @@ export default {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
+          localStorage.setItem("userId", response.data.user_id);
           this.$router.push("/home");
         })
         .catch(error => {
