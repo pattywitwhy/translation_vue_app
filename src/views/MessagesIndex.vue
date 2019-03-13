@@ -2,7 +2,7 @@
   <div class="messages-index">
     <h1>MESSAGES</h1>
     <ul>
-      <li v-for="error in errors">{{ error }}</li>
+      <div v-for="error in errors">{{ error }}</div>
     </ul>
     <form v-on:submit.prevent="submit()">
       <div>
@@ -14,30 +14,24 @@
     </form>
     <p></p>
     <div>
-      <div class="containter">
-        <div class="myMessage">
-          <span>
-            <ul v-for="message in message.body">{{ message.body }}<img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></ul>
-          </span>
-        </div>
+        <div v-for="message in message.body" class="myMessage">{{ message.body }}<img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
       </div>
-    </div>
   </div>
 
 </template>
 
 <style>
-  .myMessage, {
+  .myMessage {
       display: block;
       clear:both;
   }
-  .myMessage span {
+  .myMessage {
       border: 2px solid #dedede;
       background-color: #f1f1f1;
       border-radius: 5px;
       color: black;
-      padding: 10px 5px;
       float: right;
+      margin: 10px;
   }
 /*  .container img {
     float: left;
@@ -47,7 +41,7 @@
     border-radius: 50%;
   }*/
 
-  .container img.right {
+  .row img.right {
     float: right;
     margin-left: 20px;
     margin-right:0;
@@ -56,7 +50,8 @@
   img {
     width: 25px;
     border-radius: 5px;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 
   }
 
@@ -71,6 +66,7 @@ export default {
       newMessageBody: "",
       message: {
                 body: []
+                // conversation_id: ""
       },
       errors: []
     };
@@ -87,6 +83,7 @@ export default {
       console.log("Create a Message....");
       var params = {
                     body: this.newMessageBody
+                    // conversation_id: this.message.conversation_id
                     };
       axios.post("/api/messages", params)
         .then(response => {
