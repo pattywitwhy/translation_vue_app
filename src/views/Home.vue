@@ -78,7 +78,6 @@ export default {
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
           this.$router.push("/home");
-
           console.log("saved")
         }).catch(error => {
           console.log(error.response.data.errors);
