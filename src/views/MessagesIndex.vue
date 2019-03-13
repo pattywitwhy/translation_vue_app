@@ -6,30 +6,38 @@
     </ul>
     <form v-on:submit.prevent="submit()">
       <div>
-        Message Body: <input v-model="newMessageBody">
+        Create a Message: <input v-model="newMessageBody">
+        <div class="new-button">
+          <input type="submit" value="SEND" class="btn btn-primary">
+
+        </div>
       </div>
+
     </form>
 
-    {{ message.body }}
+    <div>
+      <ul id="v-for-object" class="translated">
+        <li v-for="value in object">
+          {{ value }}
+        </li>
+      </ul>
+      <!-- <ul v-for="body in message.body">{{ body }}</ul> -->
+    </div>
+
   </div>
-
-<!--   <div>
-    <li v-for="message in body.message" v-bind:class=""></li>
-  </div> -->
-
-
-<!--   <div>
-        <li v-for="item in list.items" v-bind:class="{complete: item.completed}" v-on:click="toggleItemComplete(item)">{{ item.name }}</li>
-      </div>
-      <div id="action-buttons"> 
-        <router-link style="margin: 8px" class="btn btn-info" :to="'/lists/' + list.id + '/edit'">Edit List</router-link>
-        <button class="btn btn-info" v-on:click="destroyList()">Delete List</button>
-      </div> -->
 
 </template>
 
+<style>
+
+</style>
+
 <script>
 var axios = require('axios');
+
+// function resetForm() {
+//   document.getElementById("myForm").reset();
+// }
 
 export default {
   data: function() {

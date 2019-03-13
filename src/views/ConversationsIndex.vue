@@ -2,7 +2,7 @@
   <div class="conversations-index">
     <h1>YOUR CONVERSATIONS</h1>
 
-    <h4>conversations: {{ conversation.starter_id }}</h4>
+    <h4>conversations: {{ conversation.conversation_id }}</h4>
 
     <button class="btn btn-secondary" v-on:click="clickConversation()">Go to Conversation</button>
   </div>
@@ -17,7 +17,11 @@ var axios = require('axios');
 export default {
   data: function() {
     return {
-      conversation: []
+      conversation: {
+                      id: "",
+                      starter_id: "",
+                      conversation_id: ""
+                    }
     };
   },
   created: function() {

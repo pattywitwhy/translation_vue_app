@@ -41,16 +41,17 @@ export default {
       axios
         .post("/api/sessions", params)
         .then(response => {
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + response.data.jwt;
+          axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
           localStorage.setItem("userId", response.data.user_id);
           this.$router.push("/home");
         })
         .catch(error => {
-          this.errors = ["Invalid email or password."];
+          this.errors = ["Invalid email or password"];
           this.email = "";
           this.password = "";
+          this.errors = error.response.data.errors;
+          console.log(error.response.data.errors);
         });
     }
   }
