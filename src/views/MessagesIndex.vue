@@ -52,6 +52,7 @@
     border-radius: 5px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 4px;
 
   }
 
@@ -83,21 +84,15 @@ export default {
       console.log("Create a Message....");
       var params = {
                     conversation_id: this.$route.params.id,
-                    body: this.newMessageBody,
+                    body: this.newMessageBody
                     };
-      axios.post("/conversations", params)
+      axios.post("/api/messages", params)
         .then(response => {
           console.log("Success", response.data);
           this.message.body.push(response.data);
-
         }).catch(error => {
           this.errors = error.response.data.errors;
           console.log(error.response.data.errors);
-        });
-      axios.get("/conversations/:id")
-        .then(response => {
-          console.log(response.data);
-          this.messages = response.data
         });
     }
   }

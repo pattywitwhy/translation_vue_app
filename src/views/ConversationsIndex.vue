@@ -3,7 +3,7 @@
     <h1>YOUR CONVERSATIONS</h1>
 
     <ol>
-      <button class="myConversations" v-on:click="clickConversation()"v-for="conversation in conversations">{{ conversation.id }}</button>
+      <button class="myConversations" v-on:click="clickConversation(conversation.id)"v-for="conversation in conversations">{{ conversation.id }}</button>
     </ol>
 
   </div>
@@ -37,14 +37,14 @@ export default {
       });
   },
   methods: {
-    clickConversation: function() {
+    clickConversation: function(inputId) {
       var params = {
                     conversation_id: this.conversation_id
                    }
       axios.get("/api/conversations/")
         .then(response => {
           console.log("Success", response.data);
-          this.$router.push("/conversations/:id");
+          this.$router.push("/conversations/" + inputId);
         });
     },
 
