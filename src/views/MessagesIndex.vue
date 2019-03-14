@@ -6,15 +6,24 @@
     </ul>
     <form v-on:submit.prevent="submit()">
       <div>
-        Create a Message: <input v-model="newMessageBody">
-        <div class="new-button">
-          <input type="submit" value="SEND" class="btn btn-primary">
-        </div>
+        <input v-model="newMessageBody">
+      </div>
+      <div class="new-button">
+        <input type="submit" value="SEND" class="btn btn-primary">
       </div>
     </form>
     <p></p>
     <div>
-      <div v-for="message in message.body" class="myMessage">{{ message.body }}<img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
+      <form v-on:click="destroyMessage()">
+        <div class="new-button">
+          <input type="submit" value="DELETE ALL MESSAGES" class="btn btn-primary">
+        </div>
+      </form>
+      
+    </div>
+    <div>
+      <div v-for="message in messages" class="myMessage">{{ message.body }}<img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+      </div>
     </div>
   </div>
 
@@ -22,16 +31,15 @@
 
 <style>
   .myMessage {
-      display: block;
-      clear:both;
-  }
-  .myMessage {
-      border: 2px solid #dedede;
-      background-color: #f1f1f1;
-      border-radius: 5px;
-      color: black;
-      float: right;
-      margin: 10px;
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    display: block;
+    clear:both;
+    color: black;
+    float: right;
+    margin: 10px;
+    padding: 5px;
   }
 /*  .container img {
     float: left;
@@ -65,14 +73,12 @@ export default {
   data: function() {
     return {
       newMessageBody: "",
-      message: {
-                body: [],
-                conversation_id: ""
-      },
+      messages: [],
       errors: []
     };
   },
   created: function() {
+    // need to get the specific messages for the specific conversation only. no point in showing all the messages in all the conversations
     axios.get("/api/messages/")
       .then(response => {
       // console.log(response.data);
@@ -86,13 +92,20 @@ export default {
                     conversation_id: this.$route.params.id,
                     body: this.newMessageBody
                     };
+
       axios.post("/api/messages", params)
         .then(response => {
           console.log("Success", response.data);
-          this.message.body.push(response.data);
-        }).catch(error => {
-          this.errors = error.response.data.errors;
-          console.log(error.response.data.errors);
+          this.messages.push(response.data);
+          this.newMessageBody = "";
+        });
+    },
+
+    destroyMessage: function() {
+      axios.delete("/api/messages/" + this.$route.params.id)
+        .then(response => {
+          console.log("Success", response.data);
+          this.$router.push("/conversations/" + this.conversation_id);
         });
     }
   }

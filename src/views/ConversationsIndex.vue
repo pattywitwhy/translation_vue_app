@@ -2,6 +2,13 @@
   <div class="conversations-index">
     <h1>YOUR CONVERSATIONS</h1>
 
+    <form v-on:submit.prevent="submit()">
+      <div>
+        Conversation Name: <input v-model="newConversationName">
+      </div>
+      <input type="submit" value="Create" class="btn btn-secondary">
+    </form>
+
     <ol>
       <button class="myConversations" v-on:click="clickConversation(conversation.id)"v-for="conversation in conversations">{{ conversation.id }}</button>
     </ol>
@@ -26,7 +33,8 @@ export default {
   data: function() {
     return {
       conversations: "",
-      started_conversation: ""
+      started_conversation: "",
+      newConversationName: ""
     };
   },
   created: function() {
@@ -37,6 +45,20 @@ export default {
       });
   },
   methods: {
+    submit: function(){
+      console.log("Create the Conversation....");
+      var params = {
+                    name: this.newConversationName
+                    };
+      axios.post("/api/conversations", params)
+        .then(response => {
+          console.log("Success", response.data);
+          this.$router.push("/conversations/");
+        }).catch(error => {
+          this.errors = error.response.data.errors;
+        });
+    },
+
     clickConversation: function(inputId) {
       var params = {
                     conversation_id: this.conversation_id
