@@ -14,8 +14,8 @@
     </form>
     <p></p>
     <div>
-        <div v-for="message in message.body" class="myMessage">{{ message.body }}<img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
-      </div>
+      <div v-for="message in message.body" class="myMessage">{{ message.body }}<img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
+    </div>
   </div>
 
 </template>
@@ -65,16 +65,16 @@ export default {
     return {
       newMessageBody: "",
       message: {
-                body: []
-                // conversation_id: ""
+                body: [],
+                conversation_id: ""
       },
       errors: []
     };
   },
   created: function() {
-    axios.get("/api/messages")
+    axios.get("/api/messages/")
       .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       this.messages = response.data;
     });
   },
@@ -82,10 +82,10 @@ export default {
     submit: function() { 
       console.log("Create a Message....");
       var params = {
-                    body: this.newMessageBody
-                    // conversation_id: this.message.conversation_id
+                    conversation_id: this.$route.params.id,
+                    body: this.newMessageBody,
                     };
-      axios.post("/api/messages", params)
+      axios.post("/conversations", params)
         .then(response => {
           console.log("Success", response.data);
           this.message.body.push(response.data);
@@ -94,7 +94,15 @@ export default {
           this.errors = error.response.data.errors;
           console.log(error.response.data.errors);
         });
+      axios.get("/conversations/:id")
+        .then(response => {
+          console.log(response.data);
+          this.messages = response.data
+        });
     }
   }
 };
 </script>
+
+
+
