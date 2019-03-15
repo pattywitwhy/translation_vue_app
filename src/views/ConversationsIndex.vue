@@ -5,14 +5,13 @@
     <form v-on:submit.prevent="submit()">
       <div>
         Conversation Name: <input v-model="newConversationName">
-      </div>
       <input type="submit" value="Create" class="btn btn-secondary">
+      <input type="submit" value="Delete" class="btn btn-secondary">
+      </div>
     </form>
-
     <ol>
-      <button class="myConversations" v-on:click="clickConversation(conversation.id)"v-for="conversation in conversations">{{ conversation.id }}</button>
+      <button class="myConversations" v-on:click="clickConversation(conversation.id)"v-for="conversation in conversations">{{ conversation.name }}</button>
     </ol>
-
   </div>
 </template>
 
@@ -32,9 +31,9 @@ var axios = require('axios');
 export default {
   data: function() {
     return {
-      conversations: "",
-      started_conversation: "",
-      newConversationName: ""
+      newConversationName: "",
+      conversations: [],
+      started_conversation: ""
     };
   },
   created: function() {
@@ -53,16 +52,12 @@ export default {
       axios.post("/api/conversations", params)
         .then(response => {
           console.log("Success", response.data);
-          this.$router.push("/conversations/");
-        }).catch(error => {
-          this.errors = error.response.data.errors;
+          this.conversations.push("/conversations/");
+          this.newConversationName = "";
         });
     },
 
     clickConversation: function(inputId) {
-      var params = {
-                    conversation_id: this.conversation_id
-                   }
       axios.get("/api/conversations/")
         .then(response => {
           console.log("Success", response.data);
@@ -74,7 +69,7 @@ export default {
       axios.get("/api/conversations")
         .then(response => {
           console.log("Displaying conversations...", response.data);
-          this.conversation.push(response.data)
+          this.newConversationName.push(response.data)
         });
     }
   }

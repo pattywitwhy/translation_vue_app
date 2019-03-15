@@ -1,5 +1,5 @@
 <template>
-  <div class="messages-index">
+  <div class="conversations-id">
     <h1>MESSAGES</h1>
     <ul>
       <div v-for="error in errors">{{ error }}</div>
@@ -12,7 +12,6 @@
         <input type="submit" value="SEND" class="btn btn-primary">
       </div>
     </form>
-    <p></p>
     <div>
       <form v-on:click="destroyMessage()">
         <div class="new-button">
@@ -22,7 +21,8 @@
       
     </div>
     <div>
-      <div v-for="message in messages" class="myMessage">{{ message.body }}<img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+      <div v-for="conversation in messages" >
+        <div v-for="message in conversation" class="myMessage"> {{message.body}} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
       </div>
     </div>
   </div>
@@ -33,13 +33,13 @@
   .myMessage {
     border: 2px solid #dedede;
     background-color: #f1f1f1;
-    border-radius: 5px;
+    border-radius: 10px;
     display: block;
-    clear:both;
+    clear: both;
     color: black;
     float: right;
     margin: 10px;
-    padding: 5px;
+    padding: 2px;
   }
 /*  .container img {
     float: left;
@@ -74,17 +74,35 @@ export default {
     return {
       newMessageBody: "",
       messages: [],
+      conversation_id: "",
+      conversation: {
+                    messages: [
+                                {
+                                  conversation_id: ""
+                                }
+                              ]
+      },
       errors: []
     };
   },
   created: function() {
     // need to get the specific messages for the specific conversation only. no point in showing all the messages in all the conversations
-    axios.get("/api/messages/")
+
+    axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
-      // console.log(response.data);
-      this.messages = response.data;
+      this.messages.push(response.data.messages);
+      console.log(this.messages);
+
+    // axios.get("/api/messages/" )
+    //   .then(response => {
+    //   this.messages = response.data;
+
+
+    //   // console.log(this.messasges.conversation_id)
+    //   console.log(response.data);
     });
   },
+
   methods: {
     submit: function() { 
       console.log("Create a Message....");
@@ -111,6 +129,3 @@ export default {
   }
 };
 </script>
-
-
-
