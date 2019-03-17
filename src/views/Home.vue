@@ -1,12 +1,21 @@
 <template>
   <div class="home">
-    <!-- <h1>{{ message }}</h1> -->
+
+    <div class="picture">
+      <form v-on:submit.prevent="submit()">
+        Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
+        
+      </form>
+    </div>
+    <input type="submit" value="Go">
+
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
+
+    <p></p>
     <div class="container">
       <form v-on:submit.prevent="submit()">
-        <div></div>
         <div class="form-group">
           <label>Name</label> 
           <input type="text" class="form-control" v-model="user.name">

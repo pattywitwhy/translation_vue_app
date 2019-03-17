@@ -6,12 +6,12 @@
       <div>
         Conversation Name: <input v-model="newConversationName">
       <input type="submit" value="Create" class="btn btn-secondary">
-      <input type="submit" value="Delete" class="btn btn-secondary">
       </div>
     </form>
     <ol>
-      <button class="myConversations" v-on:click="clickConversation(conversation.id)"v-for="conversation in conversations">{{ conversation.name }}</button>
+      <button v-on:click="clickConversation(conversation.id)" v-for="conversation in conversations" class="myConversations">{{ conversation.name }} </button>
     </ol>
+
   </div>
 </template>
 
@@ -31,9 +31,11 @@ var axios = require('axios');
 export default {
   data: function() {
     return {
-      newConversationName: "",
       conversations: [],
+      // conversation: {},
+      newConversationName: "",
       started_conversation: ""
+  
     };
   },
   created: function() {
@@ -52,8 +54,21 @@ export default {
       axios.post("/api/conversations", params)
         .then(response => {
           console.log("Success", response.data);
-          this.conversations.push("/conversations/");
+          console.log("================");
+          console.log(this.conversation);
+          this.conversation.push(response.data);
           this.newConversationName = "";
+
+        });
+    },
+
+    myConversations: function() {
+      axios.get("/api/conversations")
+      console.log("==================")
+        .then(response => {
+          console.log("Displaying conversations...", response.data);
+          this.newConversationName = response.data;
+          // conversation.name = this.newConversationName;
         });
     },
 
@@ -62,14 +77,6 @@ export default {
         .then(response => {
           console.log("Success", response.data);
           this.$router.push("/conversations/" + inputId);
-        });
-    },
-
-    myConversations: function() {
-      axios.get("/api/conversations")
-        .then(response => {
-          console.log("Displaying conversations...", response.data);
-          this.newConversationName.push(response.data)
         });
     }
   }

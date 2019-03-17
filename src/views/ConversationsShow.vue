@@ -1,6 +1,18 @@
 <template>
-  <div class="conversations-id">
+  <div class="conversations-show">
     <h1>MESSAGES</h1>
+    <div>
+      <form v-on:click="destroyMessage()">
+        <div class="new-button">
+          <input type="button" value="DELETE ALL MESSAGES" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+    <form v-on:click="goBack()">
+      <div class="new-button">
+        <input type="button" value="GO BACK TO CHATS" class="btn btn-primary">
+      </div>
+    </form>
     <ul>
       <div v-for="error in errors">{{ error }}</div>
     </ul>
@@ -12,19 +24,8 @@
         <input type="submit" value="SEND" class="btn btn-primary">
       </div>
     </form>
-    <div>
-      <form v-on:click="destroyMessage()">
-        <div class="new-button">
-          <input type="submit" value="DELETE ALL MESSAGES" class="btn btn-primary">
-        </div>
-      </form>
-      
-    </div>
-    <div>
-      <div v-for="conversation in messages" >
-        <div v-for="message in conversation" class="myMessage"> {{message.body}} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
+        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
       </div>
-    </div>
   </div>
 
 </template>
@@ -39,7 +40,8 @@
     color: black;
     float: right;
     margin: 10px;
-    padding: 2px;
+    padding-left: 8px;
+    padding-bottom: 5px;
   }
 /*  .container img {
     float: left;
@@ -73,7 +75,6 @@ export default {
   data: function() {
     return {
       newMessageBody: "",
-      messages: [],
       conversation_id: "",
       conversation: {
                     messages: [
@@ -86,20 +87,10 @@ export default {
     };
   },
   created: function() {
-    // need to get the specific messages for the specific conversation only. no point in showing all the messages in all the conversations
-
     axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
-      this.messages.push(response.data.messages);
-      console.log(this.messages);
-
-    // axios.get("/api/messages/" )
-    //   .then(response => {
-    //   this.messages = response.data;
-
-
-    //   // console.log(this.messasges.conversation_id)
-    //   console.log(response.data);
+      this.conversation = response.data;
+      console.log(this.conversation.messages);
     });
   },
 
@@ -113,17 +104,25 @@ export default {
 
       axios.post("/api/messages", params)
         .then(response => {
-          console.log("Success", response.data);
-          this.messages.push(response.data);
+          // console.log("Success", response.data);
+          this.conversation.messages.push(response.data);
           this.newMessageBody = "";
         });
     },
 
     destroyMessage: function() {
-      axios.delete("/api/messages/" + this.$route.params.id)
+      axios.delete("/api/conversations/" + this.$route.params.id)
         .then(response => {
           console.log("Success", response.data);
-          this.$router.push("/conversations/" + this.conversation_id);
+          this.$router.push("/conversations/");
+        });
+    },
+
+    goBack: function() {
+      axios.get("/api/conversations/")
+        .then(response => {
+          console.log("Success", response.data);
+          this.$router.push("/conversations/");
         });
     }
   }

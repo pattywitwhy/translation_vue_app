@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Logout from './views/Logout.vue'
 import Signup from './views/Signup.vue'
-import ConversationsId from './views/ConversationsId.vue'
+import ConversationsShow from './views/ConversationsShow.vue'
 import ConversationsIndex from './views/ConversationsIndex.vue'
 
 
@@ -18,8 +18,8 @@ export default new Router({
     { path: '/login', name: 'login', component: Login },
     { path: '/logout', name: 'logout', component: Logout },
     { path: '/signup', name: 'signup', component: Signup },
-    { path: '/conversations/:id', name: 'messages-index', component: ConversationsId },
-    { path: '/conversations', name: 'conversations-index', component: ConversationsIndex }
+    { path: '/conversations', name: 'conversations-index', component: ConversationsIndex },
+    { path: '/conversations/:id', name: 'conversations-show', component: ConversationsShow }
 
   ]
 })
