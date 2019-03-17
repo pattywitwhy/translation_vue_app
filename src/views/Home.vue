@@ -1,19 +1,5 @@
 <template>
   <div class="home">
-
-    <!-- <div class="picture">
-      <form v-on:submit.prevent="submit()">
-        <div>
-          Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
-        </div>
-        <input type="submit" value="Go">
-      </form>
-      <div v-for="profile in profiles">
-        <h2>{{profile.name}}</h2>
-        <img :src="profile.image_url" alt="">
-      </div>
-    </div> -->
-
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
@@ -23,12 +9,7 @@
         <div>
           Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
         </div>
-        <input type="submit" value="Go">
-
-        <div v-for="profile in profiles">
-          <img :src="profile.image_url" alt="">
-        </div>
-
+          <img :src="user.image_url" alt="">
         <div class="form-group">
           <label>Name</label> 
           <input type="text" class="form-control" v-model="user.name">
@@ -68,10 +49,9 @@ var axios = require('axios');
 export default {
   data: function() {
     return {
-      profiles: [],
-      newImage: "",
       user: {
             id: "",
+            image: "",
             name: "",
             email: "",
             password: "",
@@ -92,10 +72,11 @@ export default {
   methods: {
     submit: function() {
       console.log("Update profile...")
-      var profileParams = new FormData();
-      profileParams.append("image", this.newImage);
+      // var profileParams = new FormData();
+      // profileParams.append("image", this.user.image);
       
       var params = {
+                    image: this.user.image,
                     name: this.user.name,
                     email: this.user.email,
                     password: this.user.password,
@@ -105,6 +86,7 @@ export default {
 
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
+          this.$refs.fileInput.value = "";
           this.$router.push("/home");
           console.log("saved")
         }).catch(error => {
@@ -120,7 +102,7 @@ export default {
     },
     setFile: function(event) {
       if (event.target.files.length > 0) {
-        this.newImage = event.target.files[0];
+        this.user.image = event.target.files[0];
       }
     }
   }

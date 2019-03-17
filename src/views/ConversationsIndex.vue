@@ -33,7 +33,6 @@ export default {
     return {
       conversations: [],
       newConversationName: ""
-      // started_conversation: ""
     };
   },
   created: function() {
@@ -44,35 +43,21 @@ export default {
       });
   },
   methods: {
-    submit: function(){
+    submit: function() {
       console.log("Create the Conversation....");
       var params = {
                     name: this.newConversationName
                     };
       axios.post("/api/conversations", params)
         .then(response => {
-          console.log("Success", response.data);
-          console.log("================");
           this.conversations.push(response.data);
           this.newConversationName = "";
-
         });
     },
-
-    // myConversations: function() {
-    //   axios.get("/api/conversations")
-    //   console.log("==================")
-    //     .then(response => {
-    //       console.log("Displaying conversations...", response.data);
-    //       this.newConversationName = response.data;
-    //       conversation.name = this.newConversationName;
-    //     });
-    // },
 
     clickConversation: function(inputId) {
       axios.get("/api/conversations/")
         .then(response => {
-          console.log("Success", response.data);
           this.$router.push("/conversations/" + inputId);
         });
     }

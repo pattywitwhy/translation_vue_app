@@ -85,7 +85,6 @@ export default {
                     messages: [
                                 {
                                   body: ""
-                                  // conversation_id: ""
                                 }
                               ]
       },
