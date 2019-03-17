@@ -32,10 +32,8 @@ export default {
   data: function() {
     return {
       conversations: [],
-      // conversation: {},
-      newConversationName: "",
-      started_conversation: ""
-  
+      newConversationName: ""
+      // started_conversation: ""
     };
   },
   created: function() {
@@ -55,22 +53,21 @@ export default {
         .then(response => {
           console.log("Success", response.data);
           console.log("================");
-          console.log(this.conversation);
-          this.conversation.push(response.data);
+          this.conversations.push(response.data);
           this.newConversationName = "";
 
         });
     },
 
-    myConversations: function() {
-      axios.get("/api/conversations")
-      console.log("==================")
-        .then(response => {
-          console.log("Displaying conversations...", response.data);
-          this.newConversationName = response.data;
-          // conversation.name = this.newConversationName;
-        });
-    },
+    // myConversations: function() {
+    //   axios.get("/api/conversations")
+    //   console.log("==================")
+    //     .then(response => {
+    //       console.log("Displaying conversations...", response.data);
+    //       this.newConversationName = response.data;
+    //       conversation.name = this.newConversationName;
+    //     });
+    // },
 
     clickConversation: function(inputId) {
       axios.get("/api/conversations/")

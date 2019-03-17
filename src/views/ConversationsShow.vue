@@ -8,24 +8,29 @@
         </div>
       </form>
     </div>
+
     <form v-on:click="goBack()">
       <div class="new-button">
         <input type="button" value="GO BACK TO CHATS" class="btn btn-primary">
       </div>
     </form>
+
     <ul>
       <div v-for="error in errors">{{ error }}</div>
     </ul>
     <form v-on:submit.prevent="submit()">
       <div>
-        <input v-model="newMessageBody">
+        <input v-model="newMessageBody" placeholder="type your message here">
       </div>
       <div class="new-button">
         <input type="submit" value="SEND" class="btn btn-primary">
       </div>
     </form>
-        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY"></div>
+
+      <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
       </div>
+        
+    </div>
   </div>
 
 </template>
@@ -79,7 +84,8 @@ export default {
       conversation: {
                     messages: [
                                 {
-                                  conversation_id: ""
+                                  body: ""
+                                  // conversation_id: ""
                                 }
                               ]
       },
@@ -90,7 +96,7 @@ export default {
     axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
       this.conversation = response.data;
-      console.log(this.conversation.messages);
+      console.log(this.conversation);
     });
   },
 
@@ -104,7 +110,7 @@ export default {
 
       axios.post("/api/messages", params)
         .then(response => {
-          // console.log("Success", response.data);
+          console.log("Success", response.data);
           this.conversation.messages.push(response.data);
           this.newMessageBody = "";
         });

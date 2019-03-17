@@ -1,21 +1,34 @@
 <template>
   <div class="home">
 
-    <div class="picture">
+    <!-- <div class="picture">
       <form v-on:submit.prevent="submit()">
-        Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
-        
+        <div>
+          Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
+        </div>
+        <input type="submit" value="Go">
       </form>
-    </div>
-    <input type="submit" value="Go">
+      <div v-for="profile in profiles">
+        <h2>{{profile.name}}</h2>
+        <img :src="profile.image_url" alt="">
+      </div>
+    </div> -->
 
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
 
-    <p></p>
     <div class="container">
       <form v-on:submit.prevent="submit()">
+        <div>
+          Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
+        </div>
+        <input type="submit" value="Go">
+
+        <div v-for="profile in profiles">
+          <img :src="profile.image_url" alt="">
+        </div>
+
         <div class="form-group">
           <label>Name</label> 
           <input type="text" class="form-control" v-model="user.name">
@@ -55,6 +68,8 @@ var axios = require('axios');
 export default {
   data: function() {
     return {
+      profiles: [],
+      newImage: "",
       user: {
             id: "",
             name: "",
@@ -77,6 +92,9 @@ export default {
   methods: {
     submit: function() {
       console.log("Update profile...")
+      var profileParams = new FormData();
+      profileParams.append("image", this.newImage);
+      
       var params = {
                     name: this.user.name,
                     email: this.user.email,
@@ -84,13 +102,14 @@ export default {
                     preferredLanguage: this.user.preferredLanguage,
                     phoneNumber: this.user.phoneNumber
                   };
+
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
           this.$router.push("/home");
           console.log("saved")
         }).catch(error => {
           console.log(error.response.data.errors);
-          this.$router.push("/login")
+          this.$router.push("/home")
         });
     },
     chatroom: function() {
@@ -98,6 +117,11 @@ export default {
         .then(response => {
           this.$router.push("/conversations")
         });
+    },
+    setFile: function(event) {
+      if (event.target.files.length > 0) {
+        this.newImage = event.target.files[0];
+      }
     }
   }
 };
