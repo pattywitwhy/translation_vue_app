@@ -18,10 +18,10 @@
           <label>Email</label>
           <input type="email" class="form-control" v-model="user.email">
         </div>
-        <div class="form-group">
+<!--         <div class="form-group">
           <label>Password</label>
           <input type="password" class="form-control" v-model="user.password">
-        </div>
+        </div> -->
         <div class="form-group">
           <label>Preferred Language</label>
           <input type="preferred_language" class="form-control" v-model="user.preferredLanguage">
@@ -54,7 +54,7 @@ export default {
             image: "",
             name: "",
             email: "",
-            password: "",
+            // password: "",
             preferredLanguage: "",
             phoneNumber: ""
       },
@@ -79,18 +79,20 @@ export default {
                     image: this.user.image,
                     name: this.user.name,
                     email: this.user.email,
-                    password: this.user.password,
+                    // password: this.user.password,
                     preferredLanguage: this.user.preferredLanguage,
                     phoneNumber: this.user.phoneNumber
                   };
 
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
-          this.$refs.fileInput.value = "";
+          // this.$refs.fileInput.value = "";
           this.$router.push("/home");
+          this.user = response.data
           console.log("saved")
         }).catch(error => {
           console.log(error.response.data.errors);
+          this.user.push(response.data);
           this.$router.push("/home")
         });
     },
