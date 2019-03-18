@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Droid+Serif:400,400italic,700);
 /* line 12, ../sass/_type.sass */
 body {
+  background-image: url('crossword.png');
   line-height: 1.65;
 }
 
@@ -36,7 +37,7 @@ p {
     font-size: 2rem;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 992px) { 
   /* line 31, ../sass/_type.sass */
   p {
     font-size: 21px;
@@ -925,7 +926,7 @@ ol li {
   padding: 15px;
   width: 100%;
   height: 350px;
-  background-image: url(../img/default-sidebar.jpg);
+  background-image: url(../img/IMG-1030.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

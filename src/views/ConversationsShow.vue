@@ -68,7 +68,6 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 4px;
-
   }
 
 </style>
