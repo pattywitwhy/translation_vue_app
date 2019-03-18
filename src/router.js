@@ -20,6 +20,5 @@ export default new Router({
     { path: '/signup', name: 'signup', component: Signup },
     { path: '/conversations', name: 'conversations-index', component: ConversationsIndex },
     { path: '/conversations/:id', name: 'conversations-show', component: ConversationsShow }
-
   ]
 })

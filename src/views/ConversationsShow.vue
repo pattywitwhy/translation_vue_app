@@ -112,6 +112,7 @@ export default {
           console.log("Success", response.data);
           this.conversation.messages.push(response.data);
           this.newMessageBody = "";
+          console.log("nice")
         });
     },
 
