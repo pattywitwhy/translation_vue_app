@@ -9,7 +9,7 @@
         <div>
           Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
         </div>
-          <img :src="user.image_url" alt="">
+          <img :src="user.image" alt="">
         <div class="form-group">
           <label>Name</label> 
           <input type="text" class="form-control" v-model="user.name">
@@ -50,8 +50,8 @@ export default {
             image: "",
             name: "",
             email: "",
-            preferredLanguage: "",
-            phoneNumber: ""
+            preferred_language: "",
+            phone_number: ""
       },
       errors: [] 
     };
@@ -67,24 +67,41 @@ export default {
   methods: {
     submit: function() {
       console.log("Update profile...")
-      // var profileParams = new FormData();
-      // profileParams.append("image", this.user.image);
-      
+
+      // var params = new FormData();
+      // params.append("id", this.user.id);
+      // params.append("image", this.user.image);
+      // params.append("name", this.user.name);
+      // params.append("email", this.user.email);
+      // params.append("preferred_language", this.user.preferred_language);
+      // params.append("phone_number", this.user.phone_number);
+
+      // axios.patch("/api/users/" + this.user.id, params)
+      //   .then(response => {
+      //     this.user = response.data;
+      //     this.$refs.fileInput.value = "";
+      //     this.$router.push("/home");
+      //     console.log("saved");
+      //   }).catch(error => {
+      //     console.log(error.response.data.errors);
+      //     // this.user.push(response.data);
+      //     this.$router.push("/home")
+      //   });
+
       var params = {
                     image: this.user.image,
                     name: this.user.name,
                     email: this.user.email,
                     // password: this.user.password,
-                    preferredLanguage: this.user.preferredLanguage,
-                    phoneNumber: this.user.phoneNumber
+                    preferred_language: this.user.preferred_language,
+                    phone_number: this.user.phone_number
                   };
 
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
-          // this.$refs.fileInput.value = "";
           this.$router.push("/home");
+          console.log(response.data);
           this.user = response.data
-          console.log("saved")
         }).catch(error => {
           console.log(error.response.data.errors);
           this.user.push(response.data);
