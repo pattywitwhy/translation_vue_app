@@ -4,7 +4,7 @@
       <form v-on:submit.prevent="submit()">
         <h1>Login</h1>
         <ul>
-          <li class="text-danger" v-for="error in errors">{{ error }}</li>
+          <ul class="text-danger" v-for="error in errors">{{ error }}</ul>
         </ul>
         <div class="form-group">
           <label>Email:</label>

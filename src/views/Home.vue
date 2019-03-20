@@ -68,45 +68,45 @@ export default {
     submit: function() {
       console.log("Update profile...")
 
-      // var params = new FormData();
-      // params.append("id", this.user.id);
-      // params.append("image", this.user.image);
-      // params.append("name", this.user.name);
-      // params.append("email", this.user.email);
-      // params.append("preferred_language", this.user.preferred_language);
-      // params.append("phone_number", this.user.phone_number);
-
-      // axios.patch("/api/users/" + this.user.id, params)
-      //   .then(response => {
-      //     this.user = response.data;
-      //     this.$refs.fileInput.value = "";
-      //     this.$router.push("/home");
-      //     console.log("saved");
-      //   }).catch(error => {
-      //     console.log(error.response.data.errors);
-      //     // this.user.push(response.data);
-      //     this.$router.push("/home")
-      //   });
-
-      var params = {
-                    image: this.user.image,
-                    name: this.user.name,
-                    email: this.user.email,
-                    // password: this.user.password,
-                    preferred_language: this.user.preferred_language,
-                    phone_number: this.user.phone_number
-                  };
+      var params = new FormData();
+      params.append("id", this.user.id);
+      params.append("image", this.user.image);
+      params.append("name", this.user.name);
+      params.append("email", this.user.email);
+      params.append("preferred_language", this.user.preferred_language);
+      params.append("phone_number", this.user.phone_number);
 
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
+          this.user = response.data;
+          this.$refs.fileInput.value = "";
           this.$router.push("/home");
-          console.log(response.data);
-          this.user = response.data
+          console.log("saved");
         }).catch(error => {
           console.log(error.response.data.errors);
-          this.user.push(response.data);
+          // this.user.push(response.data);
           this.$router.push("/home")
         });
+
+      // var params = {
+      //               image: this.user.image,
+      //               name: this.user.name,
+      //               email: this.user.email,
+      //               // password: this.user.password,
+      //               preferred_language: this.user.preferred_language,
+      //               phone_number: this.user.phone_number
+      //             };
+
+      // axios.patch("/api/users/" + this.user.id, params)
+      //   .then(response => {
+      //     this.$router.push("/home");
+      //     console.log(response.data);
+      //     this.user = response.data
+      //   }).catch(error => {
+      //     console.log(error.response.data.errors);
+      //     this.user.push(response.data);
+      //     this.$router.push("/home")
+      //   });
     },
     chatroom: function() {
       axios.get("/api/conversations/")

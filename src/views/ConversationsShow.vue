@@ -81,9 +81,14 @@ export default {
       newMessageBody: "",
       conversation_id: "",
       conversation: {
+                    id: "",
+                    name: "",
                     messages: [
                                 {
-                                  body: ""
+                                  id: "",
+                                  body: "",
+                                  user_id: "",
+                                  conversation_id: ""
                                 }
                               ]
       },
