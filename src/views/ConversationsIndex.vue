@@ -2,19 +2,28 @@
   <div class="conversations-index">
     <h1>YOUR CONVERSATIONS</h1>
 
+    <div>
+      Contacts: <input v-model="newConversationName" list="contacts">
+      <datalist v-model="newInvitation" id="contacts">
+        <option v-for="user in users" v-bind:value="user.name">{{ user.name }}</option>
+      </datalist>
+    </div>
 
-    <form v-on:submit.prevent="submit(user.id)">
-      <div>
-        Contacts: <input v-model="newConversationName" list="contacts">
-        <datalist v-model="newInvitation" id="contacts">
-          <option v-for="user in users" v-bind:value="user.name">{{ user.name }}</option>
-        </datalist>
-      <input type="submit" value="Create" class="btn btn-secondary">
-      </div>
+    <div>
+      <form v-on:submit.prevent="submit()">
+        <input type="submit" value="Create" class="btn btn-secondary">
+      </form>
       <ol>
-        <button v-on:click="clickConversation(conversation.id)" v-for="conversation in conversations" class="myConversations">{{ conversation.name }} </button>
+        <div v-for="conversation in conversations" >
+        <router-link class="myConversations" :to="'/conversations/' + conversation.id">
+        {{ conversation.name }} 
+      </router-link>
+        </div>
       </ol>
-    </form>
+    </div>
+
+    <div>
+    </div>
 
   </div>
 </template>
@@ -54,44 +63,43 @@ export default {
     axios.get("/api/users")
       .then(response => {
         this.users = response.data
+        console.log("=====================")
       });
   },
   methods: {
 
-    submit: function(invitee_id) {
-      console.log("Make an invitation....");
-      var params2 = {
-                    starter_id: invitee_id
-                    }
+    // submit: function() {
+    //   console.log("Make an invitation....");
+
+    //   var params = {
+    //                 user_id: this.users.id,
+    //                 conversation_id: this.$route.params.id
+    //                 }
+    //   axios.post("/api/invitations")
+    //     .then(response => {
+    //       console.log(response.data);
+    //       console.log("+++++++++++++++++++++++++")
+    //       this.newInvitation = response.data
+    //       var params = {
+    //                     name: this.newConversationName
+    //                     };
+    //       axios.post("/api/conversations", params)
+    //         .then(response => {
+    //           this.conversations.push(response.data);
+    //           this.newConversationName = "";
+    //         });
+    //     });
+
+    // },
+    submit: function() {
+      console.log("Create the Conversation....");
       var params = {
                     name: this.newConversationName
                     };
-      axios.post("/api/invitations", params2)
+      axios.post("/api/conversations", params)
         .then(response => {
-          axios.post("/api/conversations", params)
-            .then(response => {
-              this.conversations.push(response.data);
-              this.newConversationName = "";
-            });
-          console.log(response.data);
-        });
-    },
-    // submit: function() {
-    //   console.log("Create the Conversation....");
-    //   var params = {
-    //                 name: this.newConversationName
-    //                 };
-    //   axios.post("/api/conversations", params)
-    //     .then(response => {
-    //       this.conversations.push(response.data);
-    //       this.newConversationName = "";
-    //     });
-    // },
-
-    clickConversation: function(inputId) {
-      axios.get("/api/conversations/")
-        .then(response => {
-          this.$router.push("/conversations/" + inputId);
+          this.conversations.push(response.data);
+          this.newConversationName = "";
         });
     }
   }

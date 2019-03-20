@@ -124,7 +124,7 @@ export default {
       axios.delete("/api/conversations/" + this.$route.params.id)
         .then(response => {
           console.log("Success", response.data);
-          this.$router.push("/conversations/");
+          this.$router.push("/conversations");
         });
     },
 
@@ -132,7 +132,8 @@ export default {
       axios.get("/api/conversations/")
         .then(response => {
           console.log("Success", response.data);
-          this.$router.push("/conversations/");
+          this.$router.push("/conversations");
+          console.log(response.data)
         });
     }
   }
