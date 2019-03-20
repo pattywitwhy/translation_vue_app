@@ -3,7 +3,9 @@
     <h1>YOUR CONVERSATIONS</h1>
 
     <div>
-      Contacts: <input v-model="newConversationName" list="contacts">
+      Contacts: <select v-model="newConversationName" list="contacts">
+        <option v-for="user in users" v-bind:value="user.name">{{ user.name }}</option>
+      </select>
       <datalist v-model="newInvitation" id="contacts">
         <option v-for="user in users" v-bind:value="user.name">{{ user.name }}</option>
       </datalist>
@@ -63,7 +65,6 @@ export default {
     axios.get("/api/users")
       .then(response => {
         this.users = response.data
-        console.log("=====================")
       });
   },
   methods: {
