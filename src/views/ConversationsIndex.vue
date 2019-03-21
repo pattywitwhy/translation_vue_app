@@ -76,6 +76,10 @@ export default {
           console.log(response.data);
         });
     },
+
+    // this.conversation.id == invitation.id???
+
+    
     // submit: function() {
     //   console.log("Create the Conversation....");
     //   var params = {
