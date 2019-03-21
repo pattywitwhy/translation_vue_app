@@ -4,13 +4,12 @@
     <h1>YOUR CONVERSATIONS</h1>
 
     <div>
-      Contacts: <select v-model="selectedUser" list="contacts">
-        <option v-for="user in users" v-bind:value="user.name">{{ user.name }}</option>
-      </select>
-    </div>
-
-    <div>
       <form v-on:submit.prevent="submit()">
+        Contacts: <select v-model="selectedUserId" list="contacts">
+          <option v-for="user in users" v-bind:value="user.id">{{ user.name }}</option>
+        </select>
+
+        <input v-model="newConversationName">
         <input type="submit" value="Create" class="btn btn-secondary">
       </form>
       <ol>
@@ -21,36 +20,6 @@
         </div>
       </ol>
     </div>
-
-    <div>
-    </div>
-
-  </div>
-  <!-- <div class="conversations-index">
-    <h1>YOUR CONVERSATIONS</h1>
-
-    <div>
-      Contacts: <select v-model="selectedUser" v-mode.lazy="selectedUser" list="contacts">
-        <option v-for="user in users" v-bind:value="user.name">{{ user.name }}</option>
-      </select>
-    </div>
-
-    <div>
-      <form v-on:submit.prevent="submit()">
-        <input type="submit" value="Create" class="btn btn-secondary">
-      </form>
-      <ol>
-        <div v-for="conversation in conversations" >
-        <router-link class="myConversations" :to="'/conversations/' + conversation.id">
-        {{ conversation.name }} 
-      </router-link>
-        </div>
-      </ol>
-    </div>
-
-    <div>
-    </div>
- -->
   </div>
 </template>
 
@@ -76,7 +45,8 @@ export default {
     return {
       users: [],
       conversations: [],
-      selectedUser: ""
+      selectedUserId: "",
+      newConversationName: ""
     };
   },
   created: function() {
@@ -95,31 +65,14 @@ export default {
     submit: function() {
       console.log("Make an invitation")
       var params = {
-                    name: this.selectedUser,
-                    user_id: this.selectedUser,
-                    conversation_id: this.$route.params.id
-                    };
+                    name: this.newConversationName,
+                    user_id: this.selectedUserId
+                    };                  
 
-      axios.post("/api/invitations", params)
-        .then(response => {
-          console.log(response.data);
-          this.$router.push(response.data)
-          axios.post("api/conversations", params)
-            .then(response => {
-              this.conversations.push(response.data)
-            });
-        });
-
-    // submit: function() {
-    //   console.log("Create the Conversation....");
-    //   var params = {
-    //                 name: this.selectedUser
-    //                 };
-    //   axios.post("/api/conversations", params)
-    //     .then(response => {
-    //       this.conversations.push(response.data);
-    //     });
-    // }
+        axios.post("api/conversations", params)
+          .then(response => {
+            this.$router.push("/conversations/" + response.data.id);
+          });
     },
     storeID: function(userID) {
       localStorage.setItem("inviteId", userID);
