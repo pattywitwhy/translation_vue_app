@@ -15,38 +15,12 @@
       </form>
     </div>
 
-
-
-<!-- +++++++++++++++++++++++++++++++++++ -->
-
     <ul>
-      <div v-for="error in errors">{{ error }}</div>
-    </ul>
-    <form id="transForm" v-on:submit.prevent="submit()">
-      <div>
-        <input v-model="textToTranslate" placeholder="type your message here">
-          Powered by Yandex.Translate
-      </div>
-      <div class="new-button">
-        <input type="submit" value="SEND" class="btn btn-primary">
-      </div>
-    </form>
-
-    <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
-    </div>
-
-
-
-<!-- +++++++++++++++++++++++++++++++++++ -->
-
-
-
-<!--     <ul>
       <div v-for="error in errors">{{ error }}</div>
     </ul>
     <form v-on:submit.prevent="submit()">
       <div>
-        <input v-model="newMessageBody" placeholder="type your message here">
+        <input v-model="textToTranslate" placeholder="type your message here">
       </div>
       <div class="new-button">
         <input type="submit" value="SEND" class="btn btn-primary">
@@ -55,7 +29,7 @@
 
     <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
     </div>
-         -->
+        
   </div>
 </template>
 
@@ -97,25 +71,13 @@
 <script>
 var axios = require('axios');
 
-// import TranslateForm from "../components/TranslateForm";
-// import TranslateOutput from "../components/TranslateOutput";
-
 export default {
-
-  // name: 'translate-api',
-  // components: {
-  //   TranslateForm,
-  //   TranslateOutput
-  // },
 
   data: function() {
     return {
-      translatedText: "",
       textToTranslate: "",
       language: "",
       // users: [],
-      // newMessageBody: "",
-      // +++++++++++++++++++++++++++++++++++++++++
       conversation_id: "",
       conversation: {
                     id: "",
@@ -132,6 +94,7 @@ export default {
       errors: []
     };
   },
+
   created: function() {
     axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
@@ -142,49 +105,22 @@ export default {
   },
 
   methods: {
-
-    // +++++++++++++++++++++++++++++++++++++++++++++++++
-
-    submit:function(body, language) { 
+    submit:function() {
       console.log("Create a Message....");
       var params = {
                     conversation_id: this.$route.params.id,
                     body: this.textToTranslate
                     };
-
       axios.post("/api/messages", params)
         .then(response => {
-          axios.post('https://translate.yandex.net/api/v1.5/tr.json/translate?q=${body}&target=en-ko&key=trnsl.1.1.20190320T200646Z.834031e5f9a4407a.a488be9050a3cd89d11da5dabafc996b6b3570af')
-            .then(response => {
-              this.translatedText = response.data;
-
-              console.log("Success", response.data);
-              this.conversation.messages.push(response.data);
-              this.textToTranslate = "";
-              console.log("nice")
-            }).catch(error => {
-              this.errors = error.response.data.errors;
-              console.log(response.data.errors)
-            });
-        });
+            this.conversation.messages.push(response.data);
+            this.textToTranslate = "";
+            console.log(response.data.body)
+          }).catch(error => {
+            this.errors = error.response.data.errors;
+            console.log(response.data.errors)
+          });
     },
-    // +++++++++++++++++++++++++++++++++++++++++++++++++
-
-    // submit: function() { 
-    //   console.log("Create a Message....");
-    //   var params = {
-    //                 conversation_id: this.$route.params.id,
-    //                 body: this.newMessageBody
-    //                 };
-
-    //   axios.post("/api/messages", params)
-    //     .then(response => {
-    //       console.log("Success", response.data);
-    //       this.conversation.messages.push(response.data);
-    //       this.newMessageBody = "";
-    //       console.log("nice")
-    //     });
-    // },
 
     destroyMessage: function() {
       axios.delete("/api/conversations/" + this.$route.params.id)
