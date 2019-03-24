@@ -15,7 +15,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     { path: '/home', name: 'home', component: Home },
-    { path: '/login', name: 'login', component: Login },
+    { path: '/', name: 'login', component: Login },
     { path: '/logout', name: 'logout', component: Logout },
     { path: '/signup', name: 'signup', component: Signup },
     { path: '/conversations', name: 'conversations-index', component: ConversationsIndex },

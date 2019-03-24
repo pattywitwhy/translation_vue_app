@@ -20,6 +20,12 @@
   </div>
 </template>
 
+<style>
+  .login {
+    padding-top: 50px;
+  }
+</style>
+
 <script>
 import axios from "axios";
 

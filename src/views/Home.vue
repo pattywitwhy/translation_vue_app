@@ -3,13 +3,14 @@
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
-
+    <div class="img">
+      <img :src="user.image_url" alt="">
+    </div>
     <div class="container">
       <form v-on:submit.prevent="submit()">
         <div class="photo">
           Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
         </div>
-          <img :src="user.image" alt="">
         <div class="form-group">
           <label>Name</label> 
           <input type="text" class="form-control" v-model="user.name">
@@ -20,14 +21,16 @@
         </div>
         <div class="form-group">
           <label>Preferred Language</label>
-          <input type="preferred_language" class="form-control" v-model="user.preferredLanguage">
+          <input type="preferred_language" class="form-control" v-model="user.preferred_language">
         </div>
         <div class="form-group">
           <label>Phone Number</label>
-          <input type="phone_number" class="form-control" v-model="user.phoneNumber">
+          <input type="phone_number" class="form-control" v-model="user.phone_number">
         </div>
         <input type="submit" class="btn btn-primary" value="Save">
       </form>
+
+        <!-- <img :src="user.image" alt=""> -->
     </div>
     
     <button class="btn" v-on:click="chatroom()">Chatrooms</button>
@@ -37,11 +40,19 @@
 </template>
 
 <style>
-.photo{
+/*img {
+  width: 150px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+*/
+.photo {
   padding-top: 20px;
 }
 
-.btn{
+.btn {
   background-color: #868e96;
   border-color: #868e96;
 }
@@ -64,6 +75,7 @@ export default {
       errors: [] 
     };
   },
+
   created: function () {
     var userId = localStorage.getItem("userId");
     axios.get("/api/users/" + userId)
@@ -72,10 +84,9 @@ export default {
       this.user = response.data;
     });
   },
+
   methods: {
     submit: function() {
-      console.log("Update profile...")
-
       var params = new FormData();
       params.append("id", this.user.id);
       params.append("image", this.user.image);
@@ -87,41 +98,25 @@ export default {
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
           this.user = response.data;
+          this.image = "";
           this.$refs.fileInput.value = "";
           this.$router.push("/home");
           console.log("saved");
         }).catch(error => {
+          console.log("nope");
           console.log(error.response.data.errors);
-          // this.user.push(response.data);
+          this.user.push(response.data);
           this.$router.push("/home")
         });
-
-      // var params = {
-      //               image: this.user.image,
-      //               name: this.user.name,
-      //               email: this.user.email,
-      //               // password: this.user.password,
-      //               preferred_language: this.user.preferred_language,
-      //               phone_number: this.user.phone_number
-      //             };
-
-      // axios.patch("/api/users/" + this.user.id, params)
-      //   .then(response => {
-      //     this.$router.push("/home");
-      //     console.log(response.data);
-      //     this.user = response.data
-      //   }).catch(error => {
-      //     console.log(error.response.data.errors);
-      //     this.user.push(response.data);
-      //     this.$router.push("/home")
-      //   });
     },
+
     chatroom: function() {
       axios.get("/api/conversations/")
         .then(response => {
           this.$router.push("/conversations")
         });
     },
+
     setFile: function(event) {
       if (event.target.files.length > 0) {
         this.user.image = event.target.files[0];
