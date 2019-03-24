@@ -7,7 +7,7 @@
 <style>
 #app {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-  font-size: 10px;
+  font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

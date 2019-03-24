@@ -6,7 +6,7 @@
 
     <div class="container">
       <form v-on:submit.prevent="submit()">
-        <div>
+        <div class="photo">
           Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
         </div>
           <img :src="user.image" alt="">
@@ -30,13 +30,21 @@
       </form>
     </div>
     
-    <button class="btn btn-secondary" v-on:click="chatroom()">Chatrooms</button>
+    <button class="btn" v-on:click="chatroom()">Chatrooms</button>
 
   </div>
 
 </template>
 
 <style>
+.photo{
+  padding-top: 20px;
+}
+
+.btn{
+  background-color: #868e96;
+  border-color: #868e96;
+}
 </style>
 
 <script>

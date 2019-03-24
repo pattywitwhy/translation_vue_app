@@ -1,40 +1,61 @@
 <template>
-  <div class="conversations-show">
-    <h1>{{ conversation.name}}</h1>
-    <div>
-      <form v-on:click="goBack()">
-        <div class="new-button">
-          <input type="button" value="GO BACK TO CHATS" class="btn btn-primary">
-        </div>
-      </form>
-      <br>
-      <form v-on:click="destroyMessage()">
-        <div class="new-button">
-          <input type="button" value="DELETE ALL MESSAGES" class="btn btn-primary">
-        </div>
-      </form>
-    </div>
 
-    <ul>
-      <div v-for="error in errors">{{ error }}</div>
-    </ul>
-    <form v-on:submit.prevent="submit()">
+  <div class="container">
+    <div class="conversations-show">
+      <h1>{{ conversation.name}}</h1>
       <div>
-        <input v-model="textToTranslate" placeholder="type your message here">
+        <form v-on:click="goBack()">
+          <div class="new-button">
+            <input type="button" value="GO BACK TO CHATS" class="btn">
+          </div>
+        </form>
+        <form v-on:click="destroyMessage()">
+          <div class="new-button">
+            <input type="button" value="DELETE ALL MESSAGES" class="btn">
+          </div>
+        </form>
       </div>
-      <div class="new-button">
-        <input type="submit" value="SEND" class="btn btn-primary">
-      </div>
-    </form>
 
-    <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+      <ul>
+        <div v-for="error in errors">{{ error }}</div>
+      </ul>
+      <form v-on:submit.prevent="submit()">
+        <div>
+          <input v-model="textToTranslate" placeholder="Type your message here">
+        </div>
+        <div class="new-button">
+          <input type="submit" value="SEND" class="btn">
+        </div>
+      </form>
+
+      <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+      </div>
+          
     </div>
-        
   </div>
 </template>
 
 <style>
+
+  .conversations-show{
+    padding-top: 20%;
+  }
+
+  h1{
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-size: 50px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    padding: 10px;
+  }
+  .app{
+    text-align: center;
+  }
+
   .myMessage {
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     border: 2px solid #dedede;
     background-color: #f1f1f1;
     border-radius: 10px; display: block;
@@ -42,8 +63,9 @@
     color: black;
     float: right;
     margin: 10px;
-    padding-left: 8px;
+    padding-left: 5px;
     padding-bottom: 5px;
+    padding-top: 5px;
   }
   /*  .container img {
       float: left;
@@ -57,11 +79,13 @@
     float: right;
     margin-left: 20px;
     margin-right:0;
+    padding: 0;
+    border-radius: 50%
   }
 
   img {
     width: 25px;
-    border-radius: 5px;
+    border-radius: 50%;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 4px;

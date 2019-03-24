@@ -1,15 +1,18 @@
 <template>
 
   <div class="conversations-index">
-    <h1>YOUR CONVERSATIONS</h1>
+    <h1>Chatrooms</h1>
 
     <div>
       <form v-on:submit.prevent="submit()">
-        Contacts: <select v-model="selectedUserId" list="contacts">
-          <option v-for="user in users" v-bind:value="user.id">{{ user.name }}</option>
-        </select>
+        <div class="contacts">
+          Contacts: <select v-model="selectedUserId" list="contacts">
+            <option v-for="user in users" v-bind:value="user.id">{{ user.name }}</option>
+          </select>
+        </div>
 
-        <input v-model="newConversationName">
+        <br>
+        <input v-model="newConversationName" placeholder="Conversation Name">
         <input type="submit" value="Create" class="btn btn-secondary">
       </form>
       <ol>
@@ -24,6 +27,18 @@
 </template>
 
 <style>
+  h1 { font-family: Avantgarde;
+    font-size: 50px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
+    padding: 10px;
+  }
+
+  .contacts{
+    color: black;
+  }
   .conversations-index {
     padding: 50px;
   }
