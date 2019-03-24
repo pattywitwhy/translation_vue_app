@@ -1,8 +1,8 @@
 <template>
-
   <div class="container">
     <div class="conversations-show">
       <h1>{{ conversation.name}}</h1>
+      <div v-for="user in conversation.users" class="members">{{ user.name}}</div>
       <div>
         <form v-on:click="goBack()">
           <div class="new-button">
@@ -28,8 +28,10 @@
         </div>
       </form>
 
-      <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
-      </div>
+      <ul class="example-1 square scrollbar-dusty-grass square thin">
+        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+        </div>
+      </ul>
           
     </div>
   </div>
@@ -37,11 +39,11 @@
 
 <style>
 
-  .conversations-show{
-    padding-top: 20%;
+  .conversations-show {
+    padding-top: 10%;
   }
 
-  h1{
+  h1 {
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     font-size: 50px;
     -webkit-font-smoothing: antialiased;
@@ -50,8 +52,20 @@
     color: #2c3e50;
     padding: 10px;
   }
-  .app{
+
+  .app {
     text-align: center;
+  }
+
+  .scrollbar-ripe-malinka::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+  }
+
+  .example-1 {
+  position: relative;
+  overflow-y: scroll;
+  height: 500px;
   }
 
   .myMessage {
@@ -67,13 +81,6 @@
     padding-bottom: 5px;
     padding-top: 5px;
   }
-  /*  .container img {
-      float: left;
-      max-width: 60px;
-      width: 100%;
-      margin-right: 20px;
-      border-radius: 50%;
-    }*/
 
   .row img.right {
     float: right;
@@ -101,7 +108,7 @@ export default {
     return {
       textToTranslate: "",
       language: "",
-      // users: [],
+      users: [],
       conversation_id: "",
       conversation: {
                     id: "",
@@ -123,7 +130,7 @@ export default {
     axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
       this.conversation = response.data;
-      // axios.get("/api/users")
+      axios.get("/api/users")
       console.log(this.conversation);
     });
   },
