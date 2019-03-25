@@ -26,7 +26,9 @@
       </div>
     </form>
     <ul class="example1 square scrollbar-dusty-grass square thin">
-      <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+      <div v-for="user in conversation.users">
+        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+        </div>
       </div>
     </ul>
   </div>
@@ -144,32 +146,11 @@ export default {
     };
   },
 
-  // computed: {
-  //             channelId() {
-  //                           return '{$this.user.id}_chat_channel';
-  //             }
-  // },
-
-  // channels: {
-  //             [this.channelId]: {
-  //               connected() {
-  //                 console.log("I'm connected")
-  //               }
-  //             }
-  // },
-
-  // mounted() {
-  //             this.$cable.subscribe(
-  //                                   { channel: 'MessagesChannel', room: this.user.id },
-  //                                   this.channelId
-  //             );
-  // }, 
-
   created: function() {
     axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
       this.conversation = response.data;
-      axios.get("/api/users")
+      axios.get("/api/users" + this.$route.params.id)
       console.log(this.conversation);
     });
   },
@@ -177,10 +158,10 @@ export default {
   methods: {
     sendMessage:function() {
       console.log("Create a Message....");
-      // var newSearchTerm = this.searchTerm.replace(/ /g, '%20');
+      var newSearchTerm = this.textToTranslate.replace(/ /g, '%20');
       var params = {
                     conversation_id: this.$route.params.id,
-                    body: this.textToTranslate
+                    body: newSearchTerm
                     };
       axios.post("/api/messages", params)
         .then(response => {
@@ -191,11 +172,6 @@ export default {
             this.errors = error.response.data.errors;
             console.log(response.data.errors)
           });
-      // this.$cable.perform({
-      //   channel: 'MessagesChannel',
-      //   action: 'sendMessage',
-      //   data: { body: this.message}
-      // });
     },
 
     destroyMessage: function() {
