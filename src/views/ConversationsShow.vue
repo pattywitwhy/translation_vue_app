@@ -1,38 +1,34 @@
 <template>
-  <div class="container">
-    <div class="conversations-show">
-      <h1>{{ conversation.name}}</h1>
-      <div v-for="user in conversation.users" class="members">
-        <img :src="user.image_url">
-      </div>
-      <div>
-        <form v-on:click="goBack()">
-          <div class="new-button">
-            <input type="button" value="GO BACK TO CHATS" class="btn">
-          </div>
-        </form>
-        <form v-on:click="destroyMessage()">
-          <div class="new-button">
-            <input type="button" value="DELETE ALL MESSAGES" class="btn">
-          </div>
-        </form>
-      </div>
-      <ul>
-        <div v-for="error in errors">{{ error }}</div>
-      </ul>
-      <form v-on:submit.prevent="submit()">
-        <div>
-          <input v-model="textToTranslate" placeholder="Type your message here">
-        </div>
+  <div class="conversations-show">
+    <h1>{{ conversation.name}}</h1>
+    <div v-for="user in conversation.users" class="members">
+      <img :src="user.image_url">
+    </div>
+      <form v-on:click="goBack()">
         <div class="new-button">
-          <input type="submit" value="SEND" class="btn">
+          <input type="button" value="GO BACK TO CHATS" class="btn">
         </div>
       </form>
-      <ul class="example1 square scrollbar-dusty-grass square thin">
-        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+      <form v-on:click="destroyMessage()">
+        <div class="new-button">
+          <input type="button" value="DELETE ALL MESSAGES" class="btn">
         </div>
-      </ul>
-    </div>
+      </form>
+    <ul>
+      <div v-for="error in errors">{{ error }}</div>
+    </ul>
+    <form v-on:submit.prevent="submit()">
+      <div>
+        <input v-model="textToTranslate" placeholder="Type your message here">
+      </div>
+      <div class="new-button">
+        <input type="submit" value="SEND" class="btn">
+      </div>
+    </form>
+    <ul class="example1 square scrollbar-dusty-grass square thin">
+      <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+      </div>
+    </ul>
   </div>
 </template>
 
@@ -43,7 +39,7 @@
 
   h1 {
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-    font-size: 50px;
+    font-size: 40px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -55,15 +51,34 @@
     text-align: center;
   }
 
+/*  .img {
+    overflow: hidden;
+    width: 400px;
+    height: 120px;
+  }
+*/
+  .btn {
+      margin: 5px;
+      border-radius: 0;
+      padding: 5px 5px;
+      float: center;
+      font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+      color: white;
+      text-transform: uppercase;
+      font-weight: 900;
+      background-color: #868e96;
+      border-color: #868e96;
+  }
+
   .scrollbar-ripe-malinka::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5;
+    width: 12px;
+    background-color: #F5F5F5;
   }
 
   .example1 {
-  position: relative;
-  overflow-y: scroll;
-  height: 500px;
+    position: relative;
+    overflow-y: scroll;
+    height: 500px;
   }
 
   .myMessage {
@@ -90,11 +105,12 @@
     border-radius: 50%
   }
 
-  img {
-    width: 25px;
-    border-radius: 50%;
-    margin-left: 10px;
-    margin-right: 10px;
+  .myMessage img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
     margin-top: 4px;
   }
 </style>

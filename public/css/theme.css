@@ -1665,7 +1665,7 @@ form textarea.form-control {
 }
 /* line 30, ../sass/partials/_contact.sass */
 form input[type=submit] {
-  margin: 30px 0;
+  margin: 5px 0;
   /*border: solid 2px black;*/
   border-radius: 0;
   padding: 10px 25px;
@@ -1980,7 +1980,7 @@ form input[type=submit]:hover {
 /* line 45, ../sass/main.sass */
 html,
 body {
-  font-size: 62.5%;
+  font-size: 90.5%;
 }
 @media (min-width: 992px) {
   /* line 45, ../sass/main.sass */

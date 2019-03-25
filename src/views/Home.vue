@@ -39,12 +39,12 @@
 
 <style>
 img {
-  max-width: 100%;
-  border-radius: 50%;
-}
-
-.photo {
-  padding-top: 20px;
+  width: 80%;
+  max-width: 300px;
+  max-height: 500px;
+  border-radius: 100%;
+  margin-top: 2px;
+  padding-bottom: 20px;
 }
 
 .btn {
