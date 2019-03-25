@@ -17,7 +17,7 @@
     <ul>
       <div v-for="error in errors">{{ error }}</div>
     </ul>
-    <form v-on:submit.prevent="submit()">
+    <form v-on:submit.prevent="sendMessage()">
       <div>
         <input v-model="textToTranslate" placeholder="Type your message here">
       </div>
@@ -51,12 +51,12 @@
     text-align: center;
   }
 
-/*  .img {
-    overflow: hidden;
-    width: 400px;
-    height: 120px;
-  }
-*/
+  /*  .img {
+      overflow: hidden;
+      width: 400px;
+      height: 120px;
+    }
+  */
   .btn {
       margin: 5px;
       border-radius: 0;
@@ -93,7 +93,6 @@
     float: right;
     margin: 10px;
     padding-left: 5px;
-    padding-bottom: 5px;
     padding-top: 5px;
   }
 
@@ -106,17 +105,20 @@
   }
 
   .myMessage img {
-    max-width: 50px;
-    max-height: 50px;
+    height: 70px;
+    width: 40px;
+    padding-top: 2px;
     border-radius: 100%;
     margin-left: 5px;
     margin-right: 5px;
-    margin-top: 4px;
   }
+
 </style>
 
 <script>
 var axios = require('axios');
+const ActionCable = require('actioncable'); 
+var cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
 export default {
 
@@ -142,6 +144,27 @@ export default {
     };
   },
 
+  // computed: {
+  //             channelId() {
+  //                           return '{$this.user.id}_chat_channel';
+  //             }
+  // },
+
+  // channels: {
+  //             [this.channelId]: {
+  //               connected() {
+  //                 console.log("I'm connected")
+  //               }
+  //             }
+  // },
+
+  // mounted() {
+  //             this.$cable.subscribe(
+  //                                   { channel: 'MessagesChannel', room: this.user.id },
+  //                                   this.channelId
+  //             );
+  // }, 
+
   created: function() {
     axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
@@ -152,7 +175,7 @@ export default {
   },
 
   methods: {
-    submit:function() {
+    sendMessage:function() {
       console.log("Create a Message....");
       // var newSearchTerm = this.searchTerm.replace(/ /g, '%20');
       var params = {
@@ -168,6 +191,11 @@ export default {
             this.errors = error.response.data.errors;
             console.log(response.data.errors)
           });
+      this.$cable.perform({
+        channel: 'MessagesChannel',
+        action: 'sendMessage',
+        data: { body: this.message}
+      });
     },
 
     destroyMessage: function() {
