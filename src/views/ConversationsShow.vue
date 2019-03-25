@@ -191,11 +191,11 @@ export default {
             this.errors = error.response.data.errors;
             console.log(response.data.errors)
           });
-      this.$cable.perform({
-        channel: 'MessagesChannel',
-        action: 'sendMessage',
-        data: { body: this.message}
-      });
+      // this.$cable.perform({
+      //   channel: 'MessagesChannel',
+      //   action: 'sendMessage',
+      //   data: { body: this.message}
+      // });
     },
 
     destroyMessage: function() {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from "axios"
-import ActionCableVue from 'actioncable-vue';
+// import ActionCableVue from 'actioncable-vue';
 
 
 axios.defaults.baseURL = 
@@ -17,23 +17,23 @@ Vue.config.productionTip = false
 // Vue.use(VueResource);
 
 
-Vue.use(ActionCableVue, {
-  debug: true,
-  debugLevel: 'error',
-  connectionUrl: 'ws://localhost:3000/api/cable'
-})
+// Vue.use(ActionCableVue, {
+//   debug: true,
+//   debugLevel: 'error',
+//   connectionUrl: 'ws://localhost:3000/api/cable'
+// })
 
 
 new Vue({
   router,
   render: h => h(App),
 
-  channels: {
-    MessagesChannel: {
-                  connected() {},
-                  received(data) {},
-                 }
-  },
+  // channels: {
+  //   MessagesChannel: {
+  //                 connected() {},
+  //                 received(data) {},
+  //                }
+  // },
 
   // methods: {
   //   sendMessage: function() {
@@ -45,7 +45,7 @@ new Vue({
   //   }
   // },
 
-  mounted() {
-    this.$cable.subscribe({ channel: 'MessagesChannel' });
-  }
+  // mounted() {
+  //   this.$cable.subscribe({ channel: 'MessagesChannel' });
+  // }
 }).$mount('#app')

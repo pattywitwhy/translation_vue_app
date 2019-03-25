@@ -109,9 +109,7 @@ export default {
           this.image = "";
           this.$refs.fileInput.value = "";
           this.$router.push("/home");
-          console.log("saved");
         }).catch(error => {
-          console.log("nope");
           console.log(error.response.data.errors);
           this.user.push(response.data);
           this.$router.push("/home")
