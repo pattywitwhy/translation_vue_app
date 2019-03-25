@@ -2,7 +2,9 @@
   <div class="container">
     <div class="conversations-show">
       <h1>{{ conversation.name}}</h1>
-      <div v-for="user in conversation.users" class="members">{{ user.name}}</div>
+      <div v-for="user in conversation.users" class="members">
+        <img :src="user.image_url">
+      </div>
       <div>
         <form v-on:click="goBack()">
           <div class="new-button">
@@ -15,7 +17,6 @@
           </div>
         </form>
       </div>
-
       <ul>
         <div v-for="error in errors">{{ error }}</div>
       </ul>
@@ -27,18 +28,15 @@
           <input type="submit" value="SEND" class="btn">
         </div>
       </form>
-
-      <ul class="example-1 square scrollbar-dusty-grass square thin">
+      <ul class="example1 square scrollbar-dusty-grass square thin">
         <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
         </div>
       </ul>
-          
     </div>
   </div>
 </template>
 
 <style>
-
   .conversations-show {
     padding-top: 10%;
   }
@@ -49,7 +47,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: black;
     padding: 10px;
   }
 
@@ -62,7 +60,7 @@
   background-color: #F5F5F5;
   }
 
-  .example-1 {
+  .example1 {
   position: relative;
   overflow-y: scroll;
   height: 500px;
@@ -72,7 +70,9 @@
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     border: 2px solid #dedede;
     background-color: #f1f1f1;
-    border-radius: 10px; display: block;
+    border-radius: 10px;
+    border-color: #5A5656;
+    display: block;
     clear: both;
     color: black;
     float: right;
@@ -138,6 +138,7 @@ export default {
   methods: {
     submit:function() {
       console.log("Create a Message....");
+      // var newSearchTerm = this.searchTerm.replace(/ /g, '%20');
       var params = {
                     conversation_id: this.$route.params.id,
                     body: this.textToTranslate

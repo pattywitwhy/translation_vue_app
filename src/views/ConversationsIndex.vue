@@ -46,7 +46,8 @@
   .myConversations {
     display: block;
     border: 1px solid;
-    border-radius: 5px;
+    border-color: black;
+    border-radius: 10px;
     width: 80%;
     height: 40px;
   }

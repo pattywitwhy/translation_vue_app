@@ -29,8 +29,6 @@
         </div>
         <input type="submit" class="btn btn-primary" value="Save">
       </form>
-
-        <!-- <img :src="user.image" alt=""> -->
     </div>
     
     <button class="btn" v-on:click="chatroom()">Chatrooms</button>
@@ -40,22 +38,33 @@
 </template>
 
 <style>
-/*img {
-  width: 150px;
+img {
+  max-width: 100%;
   border-radius: 50%;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 4px;
 }
-*/
+
 .photo {
   padding-top: 20px;
 }
 
 .btn {
+  margin: 30px 0;
+  border-radius: 0;
+  padding: 10px 25px;
+  float: center;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 900;
   background-color: #868e96;
   border-color: #868e96;
 }
+
+.btn:hover {
+  background-color: #ffffff;
+  color: #fff;
+}
+
 </style>
 
 <script>

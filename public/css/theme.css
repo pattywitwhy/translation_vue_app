@@ -61,7 +61,7 @@ a:hover, a:active {
 h1,
 h2 {
   font-weight: 700;
-  font-family: "Avantgarde", sans-serif;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   /*h1 { font-family: Avantgarde; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; }*/
 }
 
@@ -1615,9 +1615,9 @@ form:after {
 }
 /* line 4, ../sass/partials/_contact.sass */
 form label {
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  font-size: 2rem;
+  font-family: "Avantgarde";
+  font-color: black;
+  font-size: 30px;
   margin: 15px 0 0;
 }
 /* line 9, ../sass/partials/_contact.sass */
@@ -1898,6 +1898,7 @@ form input[type=submit]:hover {
     height: 100%;
     position: fixed;
     background-color: #F8F8F6;
+    /*border-color: black;*/
   }
 }
 @media (min-width: 1200px) {
@@ -2009,7 +2010,9 @@ main {
 /* line 64, ../sass/main.sass */
 a {
   color: #999999;
-  text-decoration: none;
+  font-family: "Avantgarde";
+  /*text-decoration: none;*/
+  f
 }
 /* line 68, ../sass/main.sass */
 a:hover, a:active, a:focus {
