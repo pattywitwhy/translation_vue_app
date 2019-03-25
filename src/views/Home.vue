@@ -39,10 +39,9 @@
 
 <style>
 img {
-  width: 80%;
-  max-width: 300px;
-  max-height: 500px;
-  border-radius: 100%;
+  height:200px;
+  width:160px;
+  border-radius: 100px;
   margin-top: 2px;
   padding-bottom: 20px;
 }

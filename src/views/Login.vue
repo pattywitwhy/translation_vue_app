@@ -30,7 +30,6 @@
 import axios from "axios";
 
 export default {
-  // template: "#login-page",
   data: function() {
     return {
       email: "",
