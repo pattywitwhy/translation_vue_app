@@ -2,7 +2,7 @@
   <div class="conversations-show">
     <h1>{{ conversation.name}}</h1>
     <div v-for="user in conversation.users" class="members">
-      <img :src="user.image_url">
+      <!-- <img :src="" alt=""> -->
     </div>
       <form v-on:click="goBack()">
         <div class="new-button">
@@ -25,7 +25,7 @@
         <input type="submit" value="SEND" class="btn">
       </div>
     </form>
-    <ul class="example1 square scrollbar-dusty-grass square thin">
+    <ul class="scroll-bar">
       <div v-for="user in conversation.users">
         <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img :src="user.image_url">
         </div>
@@ -77,7 +77,7 @@
     background-color: #F5F5F5;
   }
 
-  .example1 {
+  .scroll-bar {
     position: relative;
     overflow-y: scroll;
     height: 500px;

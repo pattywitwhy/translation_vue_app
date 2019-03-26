@@ -3,13 +3,15 @@
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
-    <div class="img">
-      <img :src="user.image_url" alt="">
-    </div>
+<!--     <div class="img">
+      <img src=img :src="this.user.image">
+    </div> -->
+    
     <div class="container">
       <form v-on:submit.prevent="submit()">
-        <div class="photo">
-          Profile Picture: <input type="file" v-on:change="setFile($event)" ref="fileInput">
+        <div class="form-group">
+          <label>Profile Picture:</label>
+          <input type="text" class="form-control" v-model="user.image">
         </div>
         <div class="form-group">
           <label>Name</label> 
@@ -74,7 +76,7 @@ export default {
     return {
       user: {
             id: "",
-            image: "",
+            // image: "",
             name: "",
             email: "",
             preferred_language: "",
@@ -95,19 +97,18 @@ export default {
 
   methods: {
     submit: function() {
-      var params = new FormData();
-      params.append("id", this.user.id);
-      params.append("image", this.user.image);
-      params.append("name", this.user.name);
-      params.append("email", this.user.email);
-      params.append("preferred_language", this.user.preferred_language);
-      params.append("phone_number", this.user.phone_number);
+      var params = {
+                    id: this.user.id,
+                    // image: this.user.image,
+                    name: this.user.name,
+                    email: this.user.email,
+                    preferred_language: this.user.preferred_language,
+                    phone_number: this.user.phone_number
+      }
 
       axios.patch("/api/users/" + this.user.id, params)
         .then(response => {
           this.user = response.data;
-          this.image = "";
-          this.$refs.fileInput.value = "";
           this.$router.push("/home");
         }).catch(error => {
           console.log(error.response.data.errors);
@@ -121,12 +122,6 @@ export default {
         .then(response => {
           this.$router.push("/conversations")
         });
-    },
-
-    setFile: function(event) {
-      if (event.target.files.length > 0) {
-        this.user.image = event.target.files[0];
-      }
     }
   }
 };
