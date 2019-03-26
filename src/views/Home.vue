@@ -38,31 +38,31 @@
 </template>
 
 <style>
-img {
-  height:200px;
-  width:160px;
-  border-radius: 100px;
-  margin-top: 2px;
-  padding-bottom: 20px;
-}
+  img {
+    height:200px;
+    width:160px;
+    border-radius: 100px;
+    margin-top: 2px;
+    padding-bottom: 20px;
+  }
 
-.btn {
-  margin: 30px 0;
-  border-radius: 0;
-  padding: 10px 25px;
-  float: center;
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-  color: white;
-  text-transform: uppercase;
-  font-weight: 900;
-  background-color: #868e96;
-  border-color: #868e96;
-}
+  .btn {
+    margin: 30px 0;
+    border-radius: 0;
+    padding: 10px 25px;
+    float: center;
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 900;
+    background-color: #868e96;
+    border-color: #868e96;
+  }
 
-.btn:hover {
-  background-color: #ffffff;
-  color: #fff;
-}
+  .btn:hover {
+    background-color: #ffffff;
+    color: #fff;
+  }
 
 </style>
 
