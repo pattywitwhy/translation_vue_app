@@ -4,15 +4,11 @@
       <li v-for="error in errors">{{ error }}</li>
     </ul>
     <div>
-      <img :src="user.image_url">
+      <img :src="user.image">
     </div>
 
     <div class="container">
       <form v-on:submit.prevent="submit()">
-        <div class="form-group">
-          <label>Profile Picture:</label>
-          <input type="text" class="form-control" v-model="user.image">
-        </div>
         <div class="form-group">
           <label>Name</label> 
           <input type="text" class="form-control" v-model="user.name">

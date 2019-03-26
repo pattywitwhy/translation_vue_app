@@ -1,8 +1,10 @@
 <template>
   <div class="conversations-show">
     <h1>{{ conversation.name}}</h1>
-    <div v-for="user in conversation.users" class="members">
-      <!-- <img :src="" alt=""> -->
+    <div class="row">
+      <div v-for="user in conversation.users" class="col-sm card-deck">
+        <img :src="user.image">
+      </div>
     </div>
       <form v-on:click="goBack()">
         <div class="new-button">
@@ -46,6 +48,11 @@
     color: black;
     padding: 10px;
   }
+
+  .row {
+    margin-left: 50px;
+  }
+
 
   .app {
     text-align: center;
@@ -98,22 +105,23 @@
     float: left;
   }
 
-  .row img.right {
+/*  .row img.right {
     float: right;
     margin-left: 20px;
     margin-right:0;
     padding: 0;
     border-radius: 50%
-  }
+  }*/
 
   .styled-message img {
-    height: 70px;
+    height: 50px;
     width: 40px;
     padding-top: 2px;
-    border-radius: 100%;
+    border-radius: 50% 50% 50% 50%;
     margin-left: 5px;
     margin-right: 5px;
   }
+
 
 </style>
 

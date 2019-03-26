@@ -1951,13 +1951,15 @@ form input[type=submit]:hover {
   .left-container {
     max-width: 100%;
     width: 100%;
+    background-color: #F8F8F6;
   }
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
   /* line 31, ../sass/main.sass */
   .container {
-    max-width: 100%;
+    max-width: 200%;
+    width: 100%;
   }
 }
 
