@@ -15,13 +15,19 @@
         <input v-model="newConversationName" placeholder="Conversation Name">
         <input type="submit" value="Create" class="btn btn-secondary">
       </form>
-      <ol>
-        <div v-for="conversation in conversations" >
-        <router-link class="myConversations" :to="'/conversations/' + conversation.id">
-        {{ conversation.name }} 
-      </router-link>
+      <div>
+        <div v-for="conversation in startedConversations" >
+          <router-link class="my-conversations started-conversation" :to="'/conversations/' + conversation.id">
+            {{ conversation.name }} 
+          </router-link>
         </div>
-      </ol>
+
+          <div v-for="conversation in invitedConversations" >
+            <router-link class="my-conversations invited-conversation" :to="'/conversations/' + conversation.id">
+              {{ conversation.name }} 
+            </router-link>
+          </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,13 +49,21 @@
     padding: 50px;
   }
 
-  .myConversations {
+  .my-conversations {
     display: block;
     border: 1px solid;
     border-color: black;
     border-radius: 10px;
     width: 80%;
     height: 40px;
+  }
+
+  .started-conversation {
+    border-color: green;
+  }
+
+  .invited-conversation {
+    border-color: red;
   }
 </style>
 
@@ -60,7 +74,8 @@ export default {
   data: function() {
     return {
       users: [],
-      conversations: [],
+      startedConversations: [],
+      invitedConversations: [],
       selectedUserId: "",
       newConversationName: ""
     };
@@ -69,7 +84,8 @@ export default {
     axios.get("/api/conversations")
       .then(response => {
         console.log(response.data)
-        this.conversations = response.data;
+        this.startedConversations = response.data["started_conversations"];
+        this.invitedConversations = response.data["invited_conversations"];
         axios.get("/api/users")
           .then(response => {
             this.users = response.data

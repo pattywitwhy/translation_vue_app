@@ -153,6 +153,7 @@ export default {
       this.conversation = response.data;
       axios.get("/api/users" + this.$route.params.id)
       console.log(this.conversation);
+      
     });
   },
 
