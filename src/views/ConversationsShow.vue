@@ -26,9 +26,7 @@
       </div>
     </form>
     <ul class="scroll-bar">
-      <div v-for="user in conversation.users">
-        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img :src="user.image_url">
-        </div>
+      <div v-for="message in conversation.messages" class="styled-message" v-bind:class="{myMessage: userId == message.user.id, theirMessage: userId != message.user.id}"> {{ message.body }} <img :src="message.user.image">
       </div>
     </ul>
   </div>
@@ -53,12 +51,6 @@
     text-align: center;
   }
 
-  /*  .img {
-      overflow: hidden;
-      width: 400px;
-      height: 120px;
-    }
-  */
   .btn {
       margin: 5px;
       border-radius: 0;
@@ -83,7 +75,7 @@
     height: 500px;
   }
 
-  .myMessage {
+  .styled-message {
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     font-size: 15px;
     border: 2px solid #dedede;
@@ -93,10 +85,17 @@
     display: block;
     clear: both;
     color: black;
-    float: right;
     margin: 2px;
     padding-left: 5px;
     padding-top: 5px;
+  }
+
+  .myMessage {
+    float: right;
+  }
+
+  .theirMessage {
+    float: left;
   }
 
   .row img.right {
@@ -107,7 +106,7 @@
     border-radius: 50%
   }
 
-  .myMessage img {
+  .styled-message img {
     height: 70px;
     width: 40px;
     padding-top: 2px;
@@ -136,16 +135,20 @@ export default {
                                 {
                                   id: "",
                                   body: "",
-                                  user_id: "",
-                                  conversation_id: ""
+                                  user: {
+                                          id: "",
+                                          image: ""
+                                        }                                  
                                 }
                               ]
       },
-      errors: []
+      errors: [],
+      userId: ""
     };
   },
 
   created: function() {
+    this.userId = localStorage.getItem("userId");
     axios.get("/api/conversations/" + this.$route.params.id )
       .then(response => {
       this.conversation = response.data;

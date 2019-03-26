@@ -3,10 +3,10 @@
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
-<!--     <div class="img">
-      <img src=img :src="this.user.image">
-    </div> -->
-    
+    <div>
+      <img :src="user.image_url">
+    </div>
+
     <div class="container">
       <form v-on:submit.prevent="submit()">
         <div class="form-group">
