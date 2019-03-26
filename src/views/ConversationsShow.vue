@@ -120,8 +120,6 @@
 
 <script>
 var axios = require('axios');
-const ActionCable = require('actioncable'); 
-var cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
 export default {
 
@@ -153,7 +151,7 @@ export default {
       this.conversation = response.data;
       axios.get("/api/users" + this.$route.params.id)
       console.log(this.conversation);
-      
+
     });
   },
 
