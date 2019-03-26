@@ -27,7 +27,7 @@
     </form>
     <ul class="example1 square scrollbar-dusty-grass square thin">
       <div v-for="user in conversation.users">
-        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img src="https://media.licdn.com/dms/image/C4E03AQEgfHpB_j-HKw/profile-displayphoto-shrink_200_200/0?e=1557964800&v=beta&t=8-QhX9uE-6PlLsdTuDrweNbUrpN3tugQpfqdnBHmokY">
+        <div v-for="message in conversation.messages" class="myMessage"> {{ message.body }} <img :src="user.image_url">
         </div>
       </div>
     </ul>
@@ -85,6 +85,7 @@
 
   .myMessage {
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-size: 15px;
     border: 2px solid #dedede;
     background-color: #f1f1f1;
     border-radius: 10px;
@@ -93,7 +94,7 @@
     clear: both;
     color: black;
     float: right;
-    margin: 10px;
+    margin: 2px;
     padding-left: 5px;
     padding-top: 5px;
   }
