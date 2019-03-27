@@ -52,6 +52,7 @@
 
   .my-conversations {
     display: block;
+    margin-left: 50px;
     border: 1px solid;
     border-color: black;
     border-radius: 10px;
