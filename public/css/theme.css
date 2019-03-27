@@ -1,6 +1,6 @@
 /* line 12, ../sass/_type.sass */
 body {
-  background-image: url('/css/crossword.png');
+  background-image: url('../css/crossword.png');
   line-height: 1.65;
 }
 
@@ -2010,7 +2010,7 @@ main {
 
 /* line 64, ../sass/main.sass */
 a {
-  color: #999999;
+  color: #F0F3F4;
   font-family: "Avantgarde";
   /*text-decoration: none;*/
   f
@@ -2018,6 +2018,6 @@ a {
 /* line 68, ../sass/main.sass */
 a:hover, a:active, a:focus {
   text-decoration: none;
-  color: #333;
+  color: #999999;
   border-bottom: solid 1px #999;
 }

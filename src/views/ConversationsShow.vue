@@ -57,7 +57,7 @@
   }
 
   .row {
-    margin-left: 50px;
+    margin-left: 100px;
   }
 
 
@@ -67,14 +67,19 @@
 
   .btn {
       margin: 5px;
-      border-radius: 0;
       float: center;
       font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+      font-size: 9px;
       color: white;
       text-transform: uppercase;
-      font-weight: 500;
-      background-color: #868e96;
-      border-color: #868e96;
+      font-weight: 600;
+      background-color: #51546f;
+      border-color: #51546f;
+      border-radius: 2px;
+  }
+
+  .new-button{
+    padding: .5px .5px .5px .5px;
   }
 
   .scrollbar-ripe-malinka::-webkit-scrollbar {
@@ -83,6 +88,7 @@
   }
 
   .scroll-bar {
+    padding-top: 25px;
     position: relative;
     overflow-y: scroll;
     height: 500px;

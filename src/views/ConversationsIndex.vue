@@ -61,10 +61,12 @@
 
   .started-conversation {
     border-color: black;
+    color: black;
   }
 
   .invited-conversation {
     border-color: black;
+    color: black;
   }
 </style>
 
