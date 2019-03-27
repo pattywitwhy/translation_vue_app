@@ -1,9 +1,9 @@
 <template>
   <div class="conversations-show">
-    <h1>{{ conversation.name}}</h1>
+    <h1 id="conversation-name">{{ conversation.name}}</h1>
     <div class="row">
       <div v-for="user in conversation.users" class="col-sm card-deck">
-        <img :src="user.image">
+        <img id="members-pic" :src="user.image">
       </div>
     </div>
       <form v-on:click="goBack()">
@@ -39,13 +39,20 @@
     padding-top: 10%;
   }
 
-  h1 {
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-    font-size: 40px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: black;
+  #members-pic {
+    height: 100px;
+    width: 100px;
+    padding-top: 2px;
+    border-radius: 50% 50% 50% 50%;
+  }
+
+  #conversation-name {
+    font-family: Avantgarde;
+    font-size: 50px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
     padding: 10px;
   }
 
@@ -61,12 +68,11 @@
   .btn {
       margin: 5px;
       border-radius: 0;
-      padding: 5px 5px;
       float: center;
       font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
       color: white;
       text-transform: uppercase;
-      font-weight: 900;
+      font-weight: 500;
       background-color: #868e96;
       border-color: #868e96;
   }
@@ -105,18 +111,11 @@
     float: left;
   }
 
-/*  .row img.right {
-    float: right;
-    margin-left: 20px;
-    margin-right:0;
-    padding: 0;
-    border-radius: 50%
-  }*/
-
   .styled-message img {
-    height: 50px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     padding-top: 2px;
+    padding-bottom: 2px;
     border-radius: 50% 50% 50% 50%;
     margin-left: 5px;
     margin-right: 5px;

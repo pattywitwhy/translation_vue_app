@@ -5,6 +5,7 @@
 </template>
 
 <style>
+
 #app {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-size: 15px;

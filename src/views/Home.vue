@@ -4,7 +4,7 @@
       <li v-for="error in errors">{{ error }}</li>
     </ul>
     <div>
-      <img :src="user.image">
+      <img id="profile-image" :src="user.image">
     </div>
 
     <div class="container">
@@ -36,12 +36,13 @@
 </template>
 
 <style>
-  img {
-    height:200px;
-    width:160px;
-    border-radius: 100px;
-    margin-top: 2px;
-    padding-bottom: 20px;
+  #profile-image {
+    height: 250px;
+    width: 250px;
+    padding-top: 2px;
+    border-radius: 70% 70% 70% 70%;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 
   .btn {

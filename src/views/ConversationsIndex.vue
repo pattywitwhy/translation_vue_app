@@ -33,7 +33,8 @@
 </template>
 
 <style>
-  h1 { font-family: Avantgarde;
+  h1 {
+    font-family: Avantgarde;
     font-size: 50px;
     font-style: normal;
     font-variant: normal;
@@ -59,11 +60,11 @@
   }
 
   .started-conversation {
-    border-color: green;
+    border-color: black;
   }
 
   .invited-conversation {
-    border-color: red;
+    border-color: black;
   }
 </style>
 
