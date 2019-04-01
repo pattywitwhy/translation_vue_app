@@ -43,7 +43,7 @@
     padding: 10px;
   }
 
-  .contacts{
+  .contacts {
     color: black;
   }
   .conversations-index {
