@@ -22,13 +22,6 @@
     <form v-on:submit.prevent="sendMessage()">
       <div>
         <input v-model="textToTranslate" placeholder="Type your message here">
-        <select class="form" v-model="language">
-          <option value="ru">Russian</option>
-          <option value="es">Spanish</option>
-          <option value="fr">French</option>
-          <option value="zh">Chineese</option>
-          <option value="ko">Korean</option>
-        </select>
       </div>
       <div class="new-button">
         <input type="submit" value="SEND" class="btn">
