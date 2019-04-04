@@ -3,12 +3,16 @@
     <ul>
       <li v-for="error in errors">{{ error }}</li>
     </ul>
-    <div>
+<!--     <div>
       <img id="profile-image" :src="user.image">
-    </div>
+    </div> -->
 
     <div class="container">
       <form v-on:submit.prevent="submit()">
+        <div class="form-group">
+          <label>Image</label> 
+          <input type="text" class="form-control" v-model="user.image">
+        </div>
         <div class="form-group">
           <label>Name</label> 
           <input type="text" class="form-control" v-model="user.name">
@@ -73,7 +77,7 @@ export default {
     return {
       user: {
             id: "",
-            // image: "",
+            image: "",
             name: "",
             email: "",
             preferred_language: "",
@@ -96,7 +100,7 @@ export default {
     submit: function() {
       var params = {
                     id: this.user.id,
-                    // image: this.user.image,
+                    image: this.user.image,
                     name: this.user.name,
                     email: this.user.email,
                     preferred_language: this.user.preferred_language,
